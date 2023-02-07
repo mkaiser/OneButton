@@ -34,7 +34,7 @@ OneButton::OneButton()
  * @param activeLow Set to true when the input level is LOW when the button is pressed, Default is true.
  * @param pullupActive Activate the internal pullup when available. Default is true.
  */
-OneButton::OneButton(const int pin, const boolean activeLow, const bool pullupActive)
+OneButton::OneButton(const int8_t pin, const boolean activeLow, const bool pullupActive)
 {
   // OneButton();
   _pin = pin;
@@ -59,21 +59,21 @@ OneButton::OneButton(const int pin, const boolean activeLow, const bool pullupAc
 
 
 // explicitly set the number of millisec that have to pass by before a click is assumed stable.
-void OneButton::setDebounceTicks(const int ticks)
+void OneButton::setDebounceTicks(const uint16_t ticks)
 {
   _debounceTicks = ticks;
 } // setDebounceTicks
 
 
 // explicitly set the number of millisec that have to pass by before a click is detected.
-void OneButton::setClickTicks(const int ticks)
+void OneButton::setClickTicks(const uint16_t ticks)
 {
   _clickTicks = ticks;
 } // setClickTicks
 
 
 // explicitly set the number of millisec that have to pass by before a long button press is detected.
-void OneButton::setPressTicks(const int ticks)
+void OneButton::setPressTicks(const uint16_t ticks)
 {
   _pressTicks = ticks;
 } // setPressTicks
@@ -183,7 +183,7 @@ void OneButton::reset(void)
 
 
 // ShaggyDog ---- return number of clicks in any case: single or multiple clicks
-int OneButton::getNumberClicks(void)
+uint8_t OneButton::getNumberClicks(void)
 {
   return _nClicks;
 }
@@ -216,8 +216,8 @@ void OneButton::_newState(stateMachine_t nextState)
  */
 void OneButton::tick(bool activeLevel)
 {
-  unsigned long now = millis(); // current (relative) time in msecs.
-  unsigned long waitTime = (now - _startTime);
+  uint32_t now = millis(); // current (relative) time in msecs.
+  uint32_t waitTime = (now - _startTime);
 
   // Implementation of the state machine
   switch (_state) {

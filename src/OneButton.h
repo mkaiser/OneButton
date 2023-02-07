@@ -46,24 +46,24 @@ public:
    * @param activeLow Set to true when the input level is LOW when the button is pressed, Default is true.
    * @param pullupActive Activate the internal pullup when available. Default is true.
    */
-  OneButton(const int pin, const boolean activeLow = true, const bool pullupActive = true);
+  OneButton(const int8_t pin, const boolean activeLow = true, const bool pullupActive = true);
 
   // ----- Set runtime parameters -----
 
   /**
    * set # millisec after safe click is assumed.
    */
-  void setDebounceTicks(const int ticks);
+  void setDebounceTicks(const uint16_t ticks);
 
   /**
    * set # millisec after single click is assumed.
    */
-  void setClickTicks(const int ticks);
+  void setClickTicks(const uint16_t ticks);
 
   /**
    * set # millisec after press is assumed.
    */
-  void setPressTicks(const int ticks);
+  void setPressTicks(const uint16_t ticks);
 
   /**
    * Attach an event to be called when a single click is detected.
@@ -133,7 +133,7 @@ public:
   /*
    * return number of clicks in any case: single or multiple clicks
    */
-  int getNumberClicks(void);
+  uint8_t getNumberClicks(void);
 
 
   /**
@@ -149,12 +149,12 @@ public:
 
 
 private:
-  int _pin;                         // hardware pin number.
-  unsigned int _debounceTicks = 50; // number of ticks for debounce times.
-  unsigned int _clickTicks = 400;   // number of msecs before a click is detected.
-  unsigned int _pressTicks = 800;   // number of msecs before a long button press is detected
+  int8_t _pin;                         // hardware pin number.
+  uint16_t _debounceTicks = 50; // number of ticks for debounce times.
+  uint16_t _clickTicks = 400;   // number of msecs before a click is detected.
+  uint16_t _pressTicks = 800;   // number of msecs before a long button press is detected
 
-  int _buttonPressed;
+  bool _buttonPressed;
 
   // These variables will hold functions acting as event source.
   callbackFunction _clickFunc = NULL;
@@ -204,9 +204,9 @@ private:
   stateMachine_t _state = OCS_INIT;
   stateMachine_t _lastState = OCS_INIT; // used for debouncing
 
-  unsigned long _startTime; // start of current input change to checking debouncing
-  int _nClicks;             // count the number of clicks with this variable
-  int _maxClicks = 1;       // max number (1, 2, multi=3) of clicks of interest by registration of event functions.
+  uint32_t _startTime; // start of current input change to checking debouncing
+  uint8_t _nClicks;             // count the number of clicks with this variable
+  uint8_t _maxClicks = 1;       // max number (1, 2, multi=3) of clicks of interest by registration of event functions.
 };
 
 #endif
