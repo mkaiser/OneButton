@@ -111,6 +111,7 @@ void OneButton::attachDoubleClick(parameterizedCallbackFunction newFunction, voi
 } // attachDoubleClick
 
 
+#if not defined(ONE_BUTTON_DISABLE_MULTI_CLICK)
 // save function for multiClick event
 void OneButton::attachMultiClick(callbackFunction newFunction)
 {
@@ -127,6 +128,7 @@ void OneButton::attachMultiClick(parameterizedCallbackFunction newFunction, void
   _maxClicks = max(_maxClicks, 100);
 } // attachMultiClick
 
+#endif // not defined(DISABLE_MULTI_CLICK)
 
 // save function for longPressStart event
 void OneButton::attachLongPressStart(callbackFunction newFunction)
@@ -158,6 +160,7 @@ void OneButton::attachLongPressStop(parameterizedCallbackFunction newFunction, v
 } // attachLongPressStop
 
 
+#if not defined(ONE_BUTTON_DISABLE_DURING_LONG_PRESS)
 // save function for during longPress event
 void OneButton::attachDuringLongPress(callbackFunction newFunction)
 {
@@ -171,7 +174,7 @@ void OneButton::attachDuringLongPress(parameterizedCallbackFunction newFunction,
   _paramDuringLongPressFunc = newFunction;
   _duringLongPressFuncParam = parameter;
 } // attachDuringLongPress
-
+#endif // not defined(ONE_BUTTON_DISABLE_DURING_LONG_PRESS)
 
 void OneButton::reset(void)
 {
@@ -284,9 +287,11 @@ void OneButton::tick(bool activeLevel)
         if (_paramDoubleClickFunc) _paramDoubleClickFunc(_doubleClickFuncParam);
 
       } else {
+#if not defined(ONE_BUTTON_DISABLE_MULTI_CLICK)
         // this was a multi click sequence.
         if (_multiClickFunc) _multiClickFunc();
         if (_paramMultiClickFunc) _paramMultiClickFunc(_multiClickFuncParam);
+#endif // not defined(ONE_BUTTON_DISABLE_MULTI_CLICK)
       } // if
 
       reset();
@@ -301,9 +306,11 @@ void OneButton::tick(bool activeLevel)
       _startTime = now;
 
     } else {
+      #if not defined(ONE_BUTTON_DISABLE_DURING_LONG_PRESS)
       // still the button is pressed
       if (_duringLongPressFunc) _duringLongPressFunc();
       if (_paramDuringLongPressFunc) _paramDuringLongPressFunc(_duringLongPressFuncParam);
+      #endif // not defined(ONE_BUTTON_DISABLE_DURING_LONG_PRESS)
     } // if
     break;
 

@@ -165,9 +165,11 @@ private:
   parameterizedCallbackFunction _paramDoubleClickFunc = NULL;
   void *_doubleClickFuncParam = NULL;
 
+#if not defined(ONE_BUTTON_DISABLE_MULTI_CLICK)
   callbackFunction _multiClickFunc = NULL;
   parameterizedCallbackFunction _paramMultiClickFunc = NULL;
   void *_multiClickFuncParam = NULL;
+#endif // not defined(DISABLE_MULTI_CLICK)
 
   callbackFunction _longPressStartFunc = NULL;
   parameterizedCallbackFunction _paramLongPressStartFunc = NULL;
@@ -177,9 +179,11 @@ private:
   parameterizedCallbackFunction _paramLongPressStopFunc = NULL;
   void *_longPressStopFuncParam;
 
+#if not defined(ONE_BUTTON_DISABLE_DURING_LONG_PRESS)
   callbackFunction _duringLongPressFunc = NULL;
   parameterizedCallbackFunction _paramDuringLongPressFunc = NULL;
   void *_duringLongPressFuncParam = NULL;
+#endif  // not defined(ONE_BUTTON_DISABLE_DURING_LONG_PRESS)
 
   // These variables that hold information across the upcoming tick calls.
   // They are initialized once on program start and are updated every time the
